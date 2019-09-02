@@ -8,12 +8,12 @@ export class TranslateService {
 
   constructor(private http: HttpClient) {}
   
-  use(lang: string): Promise<{}> {
+  use(lang: string = 'en'): Promise<{}> {
     return new Promise<{}>((resolve, reject) => {
-      const langPath = `assets/locales/${lang || 'en'}.json`;
-      this.http.get<{}>(langPath).subscribe(
+      const langPath = `assets/locales/${lang}.json`;
+      this.http.get(langPath).subscribe(
         translation => {
-          this.translateObject = Object.assign({}, translation || {});
+          this.translateObject = translation;
           resolve(this.translateObject);
         },
         error => {
